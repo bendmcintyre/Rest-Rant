@@ -8,7 +8,7 @@ const express = require("express");
 const app = express();
 
 // Importing code from places.js
-app.use("places", require("./controllers/places"));
+app.use("/places", require("./controllers/places"));
 
 // Declare routes that people can visit on the application.
 app.get("/", function (req, res) {

@@ -1,4 +1,3 @@
-# Rest-Rant
-# Rest-Rant
-# Rest-Rant
-# Rest-Rant
+# Project REST-Rant
+
+REST-Rant is an app where users can review restaurants.
