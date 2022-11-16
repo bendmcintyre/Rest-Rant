@@ -1,24 +1,23 @@
-// Require .env and get the enviorments variables
+// Modules and Globals
 require("dotenv").config();
-
-// Require needed node modules
 const express = require("express");
-
-// Initialize the app object
 const app = express();
 
-// Importing code from places.js
+// Express Settings
+app.set("views", __dirname + "/views");
+app.set("view engine", "jsx");
+app.engine("jsx", require("express-react-views").createEngine());
+
+// Controllers & Routes
 app.use("/places", require("./controllers/places"));
 
-// Declare routes that people can visit on the application.
-app.get("/", function (req, res) {
-  res.send("Hello World!");
+app.get("/", (req, res) => {
+  res.render("home");
 });
 
-// 404 Page
-app.get("*", function (req, res) {
-  res.status(404).send("<h1>404 Page</h1>");
+app.get("*", (req, res) => {
+  res.render("error404");
 });
 
-// Connect to server
+// Listen for Connections
 app.listen(process.env.PORT);

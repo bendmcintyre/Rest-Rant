@@ -1,8 +1,8 @@
 const router = require("express").Router();
 
-//Adding the places controller
+// GET /places
 router.get("/", (req, res) => {
-  res.send("GET /places");
+  res.render("places/index", { places });
 });
 
 module.exports = router;
