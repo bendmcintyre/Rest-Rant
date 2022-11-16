@@ -11,6 +11,17 @@ router.get("/new", (req, res) => {
   res.render("places/new");
 });
 
+router.get("/:id", (req, res) => {
+  let id = Number(req.params.id);
+  if (isNaN(id)) {
+    res.render("error404");
+  } else if (!places[id]) {
+    res.render("error404");
+  } else {
+    res.render("places/show", { place: places[id], id });
+  }
+});
+
 router.post("/", (req, res) => {
   if (!req.body.pic) {
     req.body.pic = "/images/town.jpeg";
@@ -23,6 +34,18 @@ router.post("/", (req, res) => {
   }
   places.push(req.body);
   res.redirect("/places");
+});
+
+router.delete("/:id", (req, res) => {
+  let id = Number(req.params.id);
+  if (isNaN(id)) {
+    res.render("error404");
+  } else if (!places[id]) {
+    res.render("error404");
+  } else {
+    places.splice(id, 1);
+    res.redirect("/places");
+  }
 });
 
 module.exports = router;
