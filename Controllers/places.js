@@ -22,6 +22,17 @@ router.get("/:id/edit", (req, res) => {
   }
 });
 
+router.get("/:id", (req, res) => {
+  let id = Number(req.params.id);
+  if (isNaN(id)) {
+    res.render("error404");
+  } else if (!places[id]) {
+    res.render("error404");
+  } else {
+    res.render("places/show", { place: places[id], id });
+  }
+});
+
 router.post("/", (req, res) => {
   if (!req.body.pic) {
     req.body.pic = "/images/town.jpeg";
@@ -34,6 +45,27 @@ router.post("/", (req, res) => {
   }
   places.push(req.body);
   res.redirect("/places");
+});
+
+router.put("/:id", (req, res) => {
+  let id = Number(req.params.id);
+  if (isNaN(id)) {
+    res.render("error404");
+  } else if (!places[id]) {
+    res.render("error404");
+  } else {
+    if (!req.body.pic) {
+      req.body.pic = "http://placekitten.com/400/400";
+    }
+    if (!req.body.city) {
+      req.body.city = "Anytown";
+    }
+    if (!req.body.state) {
+      req.body.state = "USA";
+    }
+    places[id] = req.body;
+    res.redirect(`/places/${id}`);
+  }
 });
 
 router.delete("/:id", (req, res) => {
